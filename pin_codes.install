@@ -15,21 +15,34 @@
    $schema [pin_codes] = [
      'description' => 'Stores Pin Codes in table with Used or unused status',
      'fields' => [
+       'id' => [
+         'type' => 'serial',
+         'not null' => TRUE,
+         'description' => 'primary key : record id for pin codes ',
+       ],
 
-       
+       'pin_code' => [
+         'type' => 'varchar',
+         'length' => 255,
+         'not null' => TRUE,
+         'description' => 'Pin code in mixed numbers and letters format',
+       ],
 
+       'pin_code_used' => [
+         'type' => 'int',
+         'not null' => TRUE,
+         'default' => 0,
+         'size' => 'tiny',
+         'description' => 'Status for pin code rather it used or not 0-Not used 1- Used',
+
+       ],
+
+       'primary key' => ['id'],
+       'indexes' => [
+         'pin_code' => ['pin_code'],
+       ],
 
      ],
-
-
-
-
-
-
-
-
-
-
 
    ];
 
