@@ -12,39 +12,39 @@
 
  function pin_code_schema () {
 
-   $schema [pin_codes] = [
+   $schema [pin_codes] = array (
      'description' => 'Stores Pin Codes in table with Used or unused status',
-     'fields' => [
-       'id' => [
+     'fields' => array (
+       'id' => array (
          'type' => 'serial',
          'not null' => TRUE,
          'description' => 'primary key : record id for pin codes ',
-       ],
+       ),
 
-       'pin_code' => [
+       'pin_code' => array (
          'type' => 'varchar',
          'length' => 255,
          'not null' => TRUE,
          'description' => 'Pin code in mixed numbers and letters format',
-       ],
+       ),
 
-       'pin_code_used' => [
+       'pin_code_used' => array (
          'type' => 'int',
          'not null' => TRUE,
          'default' => 0,
          'size' => 'tiny',
          'description' => 'Status for pin code rather it used or not 0-Not used 1- Used',
 
-       ],
+       ),
 
-       'primary key' => ['id'],
-       'indexes' => [
-         'pin_code' => ['pin_code'],
-       ],
+       'primary key' => array ('id'),
+       'indexes' => array (
+         'pin_code' => array ('pin_code'),
+       ),
 
-     ],
+     ),
 
-   ];
+   );
 
    return $schema;
  }
