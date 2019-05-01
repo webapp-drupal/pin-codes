@@ -10,7 +10,7 @@
  *
  */
 
- function pin_code_schema () {
+ function pin_codes_schema () {
 
    $schema [pin_codes] = array (
      'description' => 'Stores Pin Codes in table with Used or unused status',
