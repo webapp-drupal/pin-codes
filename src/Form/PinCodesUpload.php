@@ -40,10 +40,10 @@ class PinCodesUpload extends FormBase {
       '#description' => $this->t('Upload file, #type = submit'),
 
     ];
-
+      return $form;
   }
 
-  return $form;
+
 
 }
 
