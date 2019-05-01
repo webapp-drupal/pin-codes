@@ -12,21 +12,23 @@
 
  function pin_codes_schema () {
 
-   $schema [pin_codes] = array (
+   $schema [p_codes] = array (
      'description' => 'Stores Pin Codes in table with Used or unused status',
      'fields' => array (
        'id' => array (
          'type' => 'serial',
          'description' => 'primary key : record id for pin codes ',
+         'not null' => TRUE,
        ),
 
-       'pin_code' => array (
+       'p_code' => array (
          'type' => 'varchar',
          'length' => 255,
+         'not null' => TRUE,
          'description' => 'Pin code in mixed numbers and letters format',
        ),
 
-       'pin_code_used' => array (
+       'p_code_used' => array (
          'type' => 'int',
          'default' => 0,
          'size' => 'tiny',
