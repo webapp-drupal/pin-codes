@@ -17,20 +17,17 @@
      'fields' => array (
        'id' => array (
          'type' => 'serial',
-         'not null' => TRUE,
          'description' => 'primary key : record id for pin codes ',
        ),
 
        'pin_code' => array (
          'type' => 'varchar',
          'length' => 255,
-         'not null' => TRUE,
          'description' => 'Pin code in mixed numbers and letters format',
        ),
 
        'pin_code_used' => array (
          'type' => 'int',
-         'not null' => TRUE,
          'default' => 0,
          'size' => 'tiny',
          'description' => 'Status for pin code rather it used or not 0-Not used 1- Used',
@@ -38,9 +35,7 @@
        ),
 
        'primary key' => array ('id'),
-       'indexes' => array (
-         'pin_code' => array ('pin_code'),
-       ),
+
 
      ),
 
