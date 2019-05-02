@@ -28,9 +28,12 @@ class PinCodesUpload extends FormBase {
 
     // File.
     $form['file'] = [
-      '#type' => 'file',
-      '#title' => 'File',
-      '#description' => $this->t('File, #type = file : @extentions',['@extentions' => 'csv']),
+      '#type' => 'managed_file',
+      '#title' => 'Upload CSV file with Pin Codes',
+      '#description' => $this->t('Only : @extentions File type ',['@extentions' => 'csv']),
+      '#upload_validators' => [
+      'file_validate_extensions' => ['csv'],
+    ],
       '#upload_location' => 'public://pin_codes/',
     ];
     $form ['submit'] =[
@@ -41,7 +44,7 @@ class PinCodesUpload extends FormBase {
 
     ];
       return $form;
-  }
+
 
 
 
@@ -53,5 +56,7 @@ class PinCodesUpload extends FormBase {
 public function submitForm(array &$form, FormStateInterface $form_state) {
 
   drupal_set_message(t('File uploaded'));
+
+  }
 
 }
