@@ -77,7 +77,7 @@ public function submitForm(array &$form, FormStateInterface $form_state) {
     }
   }
 //starting DB conection
-
+$connection = \Drupal::database();
   }
 
 }
