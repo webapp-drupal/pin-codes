@@ -4,6 +4,7 @@ namespace Drupal\pin_codes\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Entity\File;
 
 /**
  * Implements PinCodesUpload form controller.
@@ -55,11 +56,27 @@ class PinCodesUpload extends FormBase {
  */
 public function submitForm(array &$form, FormStateInterface $form_state) {
 
-  $connection = \Drupal::database();
-$query = $connection->query("SELECT pin_code, status FROM pin_codes");
-$result = $query->fetchAll();
 
-  drupal_set_message(t('File uploaded'));
+//getting file name for feature db query
+  if ($form_state->hasFileElement())
+  {
+
+    $fileAray = $form_state->getValue('file');
+    if (is_array($fileAray))
+    {
+      if (isset($fileAray[0]))
+      {
+        $file_id = $fileAray[0];
+        $file = \Drupal\file\Entity\File::load($file_id);
+        if ($file != NULL)
+        {
+          $filename = $file->getFilename();
+          drupal_set_message('Filename: ' . $filename);
+        }
+      }
+    }
+  }
+//starting DB conection
 
   }
 
