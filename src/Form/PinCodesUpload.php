@@ -55,6 +55,10 @@ class PinCodesUpload extends FormBase {
  */
 public function submitForm(array &$form, FormStateInterface $form_state) {
 
+  $connection = \Drupal::database();
+$query = $connection->query("SELECT pin_code, status FROM pin_codes");
+$result = $query->fetchAll();
+
   drupal_set_message(t('File uploaded'));
 
   }
