@@ -18,10 +18,10 @@ class PinCodesUpload extends FormBase {
   /**
    * {@inheritdoc}
    */
-
   public function getFormId() {
     return 'pin_codes_upload';
   }
+
   /**
    * {@inheritdoc}
    */
@@ -33,51 +33,51 @@ class PinCodesUpload extends FormBase {
       '#title' => 'Upload CSV file with Pin Codes',
       '#description' => $this->t('Only : @extentions File type ',['@extentions' => 'csv']),
       '#upload_validators' => [
-      'file_validate_extensions' => ['csv'],
-    ],
+        'file_validate_extensions' => ['csv'],
+      ],
       '#upload_location' => 'public://pin_codes/',
     ];
-    $form ['submit'] =[
 
+    $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Upload'),
       '#description' => $this->t('Upload file, #type = submit'),
 
     ];
-      return $form;
 
+    return $form;
+  }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    // getting file name for feature db query
+    if ($form_state->hasFileElement()) {
+      $fileArray = $form_state->getValue('file');
 
+      if (is_array($fileArray)) {
+        if (isset($fileArray[0])) {
+          $file_id = $fileArray[0];
+          $file = \Drupal\file\Entity\File::load($file_id);
 
-}
-
-/**
- * {@inheritdoc}
- */
-public function submitForm(array &$form, FormStateInterface $form_state) {
-
-
-//getting file name for feature db query
-  if ($form_state->hasFileElement())
-  {
-
-    $fileAray = $form_state->getValue('file');
-    if (is_array($fileAray))
-    {
-      if (isset($fileAray[0]))
-      {
-        $file_id = $fileAray[0];
-        $file = \Drupal\file\Entity\File::load($file_id);
-        if ($file != NULL)
-        {
-          $filename = $file->getFilename();
-          drupal_set_message('Filename: ' . $filename);
+          if ($file != NULL) {
+            $filename = $file->getFilename();
+            $absolute_path = \Drupal::service('file_system')->realpath($file->getFileUri());
+            drupal_set_message('Filename: ' . $filename);
+          }
         }
       }
     }
-  }
-//starting DB conection
-$connection = \Drupal::database();
+
+    //starting DB conection
+    if ($absolute_path) {
+      $connection = \Drupal::database();
+      $queryString = "LOAD DATA LOCAL INFILE '" . $absolute_path . "' INTO TABLE {pin_codes} FIELDS TERMINATED BY ',' ENCLOSED BY '\"' LINES TERMINATED BY '\r\n' IGNORE 1 LINES (pin_code)";
+      $query = $connection->query($queryString);
+
+      drupal_set_message("Pin codes successfully uploaded");
+    }
   }
 
 }
