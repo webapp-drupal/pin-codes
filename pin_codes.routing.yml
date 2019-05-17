@@ -4,4 +4,13 @@ pin_codes.pin_codes_upload_form:
     _form:  '\Drupal\pin_codes\Form\PinCodesUpload'
     _title: 'Pin Codes upload Form'
   requirements:
-    _permission: 'access content'
+    _role: 'administrator'
+
+pin_codes.access_form:
+  path: '/pin_codes/form/access'
+  defaults:
+    _form: '\Drupal\pin_codes\Form\AccessForm'
+    _title: 'AccessForm'
+  requirements:
+    _access: 'TRUE'
+  

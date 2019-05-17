@@ -64,7 +64,6 @@ class PinCodesUpload extends FormBase {
           if ($file != NULL) {
             $filename = $file->getFilename();
             $absolute_path = \Drupal::service('file_system')->realpath($file->getFileUri());
-            drupal_set_message('Filename: ' . $filename);
           }
         }
       }
@@ -76,7 +75,8 @@ class PinCodesUpload extends FormBase {
       $queryString = "LOAD DATA LOCAL INFILE '" . $absolute_path . "' INTO TABLE {pin_codes} FIELDS TERMINATED BY ',' ENCLOSED BY '\"' LINES TERMINATED BY '\r\n' IGNORE 1 LINES (pin_code)";
       $query = $connection->query($queryString);
 
-      drupal_set_message("Pin codes successfully uploaded");
+      $messenger = \Drupal::messenger();
+      $messenger->addMessage('Pin codes successfully uploaded', $messenger::TYPE_STATUS);
     }
   }
 
