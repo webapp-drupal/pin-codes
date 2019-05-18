@@ -44,7 +44,7 @@ class PartnersPageAccess extends AccessPluginBase {
    * {@inheritdoc}
    */
   public function alterRouteDefinition(Route $route) {
-    $route->setRequirement('_access', 'TRUE');
+    $route->setRequirement('_custom_access', '\Drupal\pin_codes\Access\PartnersPageAccess::access');
   }
 
 }
