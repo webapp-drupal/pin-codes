@@ -150,6 +150,15 @@ class AccessForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $pin = $form_state->getValue('pin_code');
+
+    // Get user private temp store
+    $tempstore = $this->userPrivateTempstore->get('pin_codes');
+
+    // Set the pincode to store for checking views access
+    $tempstore->set('pin_code', $pin);
+
+    // Redirect to partners page
     $form_state->setRedirect('view.partners.page_1');
     return;
   }
