@@ -13,4 +13,3 @@ pin_codes.access_form:
     _title: 'AccessForm'
   requirements:
     _access: 'TRUE'
-  
