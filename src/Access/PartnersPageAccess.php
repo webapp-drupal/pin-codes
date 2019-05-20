@@ -15,7 +15,7 @@ class PartnersPageAccess {
    */
   public function access(AccountInterface $account) {
     $tempstore = \Drupal::service('user.private_tempstore')->get('pin_codes');
-    $pin_code = $tempstore->get('pin_code');;
+    $pin_code = $tempstore->get('pin_code');
 
     if (isset($pin_code)) {
       return AccessResult::allowed();

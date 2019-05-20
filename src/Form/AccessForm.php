@@ -111,9 +111,11 @@ class AccessForm extends FormBase {
     $pin = $form_state->getValue('pin_code');
 
     // Look for the pin in our custom table
-    $queryString = 'SELECT * FROM {pin_codes} WHERE pin_code=:pin_code';
+    $queryString = 'SELECT * FROM {pin_codes} WHERE BINARY pin_code=:pin_code';
     $query = $this->database->query($queryString, [':pin_code' => $pin]);
     $result = $query->fetchField();
+
+    \Drupal::logger('$result')->notice('<pre>@type</pre>', array('@type' => print_r($result, TRUE)));
 
     $response = new AjaxResponse();
 
@@ -123,6 +125,11 @@ class AccessForm extends FormBase {
       $message = $this->t('Invalid Pincode.');
       $response->addCommand(new CssCommand('#edit-pin-code', $css));
       $response->addCommand(new HtmlCommand('.pin-invalid-message', $message));
+    }
+    else {
+      $css = ['border' => 'none'];
+      $response->addCommand(new CssCommand('#edit-pin-code', $css));
+      $response->addCommand(new HtmlCommand('.pin-invalid-message', ''));
     }
 
     return $response;
@@ -136,7 +143,7 @@ class AccessForm extends FormBase {
     $pin = $form_state->getValue('pin_code');
 
     // Look for the pin in our custom table
-    $queryString = 'SELECT * FROM {pin_codes} WHERE pin_code=:pin_code';
+    $queryString = 'SELECT * FROM {pin_codes} WHERE BINARY pin_code=:pin_code';
     $query = $this->database->query($queryString, [':pin_code' => $pin]);
     $result = $query->fetchField();
 
