@@ -163,7 +163,8 @@ class AccessForm extends FormBase {
     $tempstore = $this->userPrivateTempstore->get('pin_codes');
 
     // Set the pincode to store for checking views access
-    $tempstore->set('pin_code', $pin);
+    // And set the expiry to 3600 (1 hour)
+    $tempstore->set('pin_code', $pin, 3600);
 
     // Redirect to partners page
     $form_state->setRedirect('view.partners.page_1');
